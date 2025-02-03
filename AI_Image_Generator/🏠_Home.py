@@ -18,6 +18,10 @@ from firebase_admin import credentials
 import pyrebase
 import json
 from firebase_admin import firestore
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 # Import the auth module
 from auth import firebase, auth_firebase, handle_auth, initialize_firebase_db
@@ -33,35 +37,42 @@ st.set_page_config(
 # Set up FAL API key
 os.environ['FAL_KEY'] = st.secrets["fal"]["api_key"]
 
-# Configure Firebase
-firebaseConfig = {
-    "apiKey": st.secrets["firebase"]["api_key"],
-    "authDomain": st.secrets["firebase"]["auth_domain"],
-    "projectId": st.secrets["firebase"]["project_id"],
-    "storageBucket": st.secrets["firebase"]["storage_bucket"],
-    "messagingSenderId": st.secrets["firebase"]["messaging_sender_id"],
-    "databaseURL": st.secrets["firebase"]["database_url"],
-    "appId": st.secrets["firebase"]["app_id"]
-}
+# Modify the Firebase initialization section
+try:
+    # Configure Firebase
+    firebaseConfig = {
+        "apiKey": st.secrets["firebase"]["api_key"],
+        "authDomain": st.secrets["firebase"]["auth_domain"],
+        "projectId": st.secrets["firebase"]["project_id"],
+        "storageBucket": st.secrets["firebase"]["storage_bucket"],
+        "messagingSenderId": st.secrets["firebase"]["messaging_sender_id"],
+        "databaseURL": st.secrets["firebase"]["database_url"],
+        "appId": st.secrets["firebase"]["app_id"]
+    }
 
-# Initialize Firebase Admin SDK if not already initialized
-if not firebase_admin._apps:
-    current_dir = Path(__file__).parent
-    service_account_path = current_dir / 'serviceAccountKey.json'
-    
-    try:
+    # Initialize Firebase Admin SDK if not already initialized
+    if not firebase_admin._apps:
+        current_dir = Path(__file__).parent
+        service_account_path = current_dir / 'serviceAccountKey.json'
+        
+        if not service_account_path.exists():
+            st.error("serviceAccountKey.json not found. Please make sure it's in the same directory as this script.")
+            st.stop()
+            
         cred = credentials.Certificate(str(service_account_path))
         firebase_admin.initialize_app(cred)
-    except Exception as e:
-        st.error(f"Error initializing Firebase: {str(e)}")
-        st.stop()
 
-# Get Firestore database instance
-db = firebase_admin.firestore.client()
+    # Get Firestore database instance
+    db = firebase_admin.firestore.client()
 
-# Initialize Pyrebase using the same config
-firebase = pyrebase.initialize_app(firebaseConfig)
-auth_firebase = firebase.auth()
+    # Initialize Pyrebase using the same config
+    firebase = pyrebase.initialize_app(firebaseConfig)
+    auth_firebase = firebase.auth()
+
+except Exception as e:
+    st.error(f"Error initializing Firebase: {str(e)}")
+    logging.error(f"Firebase initialization error: {str(e)}", exc_info=True)
+    st.stop()
 
 # Initialize session state for storing generated images if it doesn't exist
 if 'generated_images' not in st.session_state:
