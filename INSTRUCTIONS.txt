@@ -1,0 +1,16 @@
+INSTALLATION:
+
+Run:
+
+pip install streamlit
+
+Validate the installation by running our Hello app:
+
+streamlit hello
+
+
+START: 
+
+Open Dir & Run on CMD:
+
+streamlit run 🏠_Home.py
