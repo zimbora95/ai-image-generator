@@ -1,2 +1,5 @@
+fal-serverless==0.7.3
 streamlit
-fal
+firebase-admin
+pyrebase4
+pandas

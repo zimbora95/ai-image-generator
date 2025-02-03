@@ -1,5 +1,9 @@
 import streamlit as st
-import subprocess
+try:
+    import fal_client
+except ImportError:
+    st.error("Required package 'fal-serverless' is not installed. Please add it to requirements.txt")
+    st.stop()
 import sys
 
 def install_package(package):
