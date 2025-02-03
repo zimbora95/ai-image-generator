@@ -31,17 +31,17 @@ st.set_page_config(
 )
 
 # Set up FAL API key
-os.environ['FAL_KEY'] = "19a6ca05-3a0c-4917-8853-9ed685ca6864:5bc9d0f5876a4fdc0c2838a3ff2ba67e"
+os.environ['FAL_KEY'] = st.secrets["fal"]["api_key"]
 
 # Configure Firebase
 firebaseConfig = {
-    "apiKey": "AIzaSyCgf0yCLtLjPJdjJ1TpAXaP6AS3NWgKnUA",
-    "authDomain": "toonzon-a2c50.firebaseapp.com",
-    "projectId": "toonzon-a2c50",
-    "storageBucket": "toonzon-a2c50.appspot.com",
-    "messagingSenderId": "997161691599",
-    "databaseURL": "https://toonzon-a2c50.firebaseio.com",
-    "appId": "1:997161691599:web:c2e4c0c2838a3ff2ba67e"
+    "apiKey": st.secrets["firebase"]["api_key"],
+    "authDomain": st.secrets["firebase"]["auth_domain"],
+    "projectId": st.secrets["firebase"]["project_id"],
+    "storageBucket": st.secrets["firebase"]["storage_bucket"],
+    "messagingSenderId": st.secrets["firebase"]["messaging_sender_id"],
+    "databaseURL": st.secrets["firebase"]["database_url"],
+    "appId": st.secrets["firebase"]["app_id"]
 }
 
 # Initialize Firebase Admin SDK if not already initialized
