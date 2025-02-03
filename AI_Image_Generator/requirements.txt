@@ -1,4 +1,4 @@
-fal-serverless==0.7.3
+fal-serverless==0.6.41
 streamlit==1.31.1
 firebase-admin==6.2.0
 pyrebase4==4.7.1

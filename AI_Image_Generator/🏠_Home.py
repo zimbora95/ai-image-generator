@@ -1,8 +1,12 @@
 import streamlit as st
 try:
     import fal_client
-except ImportError:
-    st.error("Required package 'fal-serverless' is not installed. Please add it to requirements.txt")
+except ImportError as e:
+    st.error("""
+    Error importing fal-serverless package. 
+    Please check your installation and make sure you're using version 0.6.41.
+    Error details: {}
+    """.format(str(e)))
     st.stop()
 import os
 import tempfile
