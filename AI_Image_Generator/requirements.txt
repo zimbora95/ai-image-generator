@@ -1,6 +1,10 @@
 fal-serverless==0.7.3
-streamlit
-firebase-admin
-pyrebase4
-pandas
-python-dotenv
+streamlit==1.31.1
+firebase-admin==6.4.0
+Pyrebase4==4.7.1
+pandas==2.2.0
+python-dotenv==1.0.1
+requests==2.31.0
+gcloud==0.18.3
+python-jwt==4.1.0
+cryptography==41.0.7

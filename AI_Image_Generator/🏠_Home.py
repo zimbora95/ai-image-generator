@@ -59,18 +59,7 @@ if not firebase_admin._apps:
 # Get Firestore database instance
 db = firebase_admin.firestore.client()
 
-# Configure Pyrebase
-firebaseConfig = {
-    "apiKey": "AIzaSyCgf0yCLtLjPJdjJ1TpAXaP6AS3NWgKnUA",
-    "authDomain": "toonzon-a2c50.firebaseapp.com",
-    "projectId": "toonzon-a2c50",
-    "storageBucket": "toonzon-a2c50.appspot.com",
-    "messagingSenderId": "997161691599",
-    "databaseURL": "https://toonzon-a2c50-default-rtdb.firebaseio.com",
-    "appId": "1:997161691599:web:c2e4c0c2838a3ff2ba67e"
-}
-
-# Initialize Pyrebase
+# Initialize Pyrebase using the same config
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth_firebase = firebase.auth()
 
