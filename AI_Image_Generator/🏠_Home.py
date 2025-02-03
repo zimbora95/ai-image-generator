@@ -1,5 +1,17 @@
 import streamlit as st
-import fal_client
+import subprocess
+import sys
+
+def install_package(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Install required package if not already installed
+try:
+    import fal_client
+except ImportError:
+    print("Installing fal-serverless...")
+    install_package("fal-serverless")
+    import fal_client
 import os
 import tempfile
 import random
