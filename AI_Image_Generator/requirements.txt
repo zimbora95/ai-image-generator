@@ -3,3 +3,4 @@ streamlit
 firebase-admin
 pyrebase4
 pandas
+python-dotenv
